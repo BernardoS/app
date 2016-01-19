@@ -27,6 +27,8 @@ html, body {
    background-color: #1B1C1D !important;
  }
 
+ 
+
 .ui.toggle.checkbox{
   /* Big Checkbox */
   -ms-transform: scale(2); /* IE */
