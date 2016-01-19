@@ -48,6 +48,12 @@ Serial = class Serial {
     this.onDisconnect = null
 
     this.port = null
+<<<<<<< HEAD
+=======
+    this.pnpId = 'pci-Texas_Instruments_XDS110__02.02.04.02__with_CMSIS-DAP_00000000-if00'
+    //this.pnpId = 'usb-Texas_Instruments_XDS110__02.02.04.02__with_CMSIS-DAP_00000000-if00'
+    this.vendorId = '0x0x8086'
+>>>>>>> BernardoS/v0.1.1-merge
     this.baudrate = 115200
     this.serialHandle = null
     this.connect()  

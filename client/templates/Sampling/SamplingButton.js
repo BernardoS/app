@@ -13,7 +13,6 @@ Template.SamplingButton.events({
     let button = template.$(event.currentTarget);
     if(button.hasClass('positive')){
       Meteor.call('newStartSampling',function(error,result){
-        console.log(error, result);
         if(error){
           Messages.newErrorMsg(error);
           return false;

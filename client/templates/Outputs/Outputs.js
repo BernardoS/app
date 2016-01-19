@@ -58,13 +58,3 @@ Template.Outputs.events({
     }
   }
 });
-
-/*Template.Outputs.events({
-  "click .ui.toggle.checkbox": function(event, template){
-  }
-});
-
-Template.Outputs.onRendered(function () {
-  $('.Radiobox.ui').checkbox('attach events', 'label.Radiobox', 'check');
-  $('.Checkbox.ui').checkbox('can change');
-});*/
