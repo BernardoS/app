@@ -1,6 +1,6 @@
 Services.msp.methods.serialize = function (method, args, buffer, offset) {
   try {
-    let service = Services.utils.find(Services.msp.methods.map, 'method', method) 
+    let service = Services.utils.find(Services.msp.methods.map, 'method', method)
     service.validateArgs(args)
     return service.serialize(args, buffer, offset)
   }
@@ -12,7 +12,7 @@ Services.msp.methods.serialize = function (method, args, buffer, offset) {
 Services.msp.methods.deserialize = function (id, packet) {
   try {
     let service = Services.utils.find(Services.msp.methods.map, 'id', id)
-    
+
     if (typeof(service.deserialize) !== 'undefined') {
       return service.deserialize(packet)
     }
@@ -25,7 +25,7 @@ Services.msp.methods.deserialize = function (id, packet) {
 
 function validateArray(args) {
   if (!args) throw `@${this.method} - args undefined`
-  
+
   args.forEach((obj) => {
     if (this.validIds.indexOf(obj.id) == -1) {
       throw `@${this.method} - invalid id: ${obj.id}`
@@ -46,7 +46,7 @@ Services.msp.methods.map = [
     ],
     serialize(args, buffer, offset) {
       buffer.writeUInt8(this.id, offset)
-     
+
       let i = 0;
       args.forEach(function (obj) {
         buffer.writeUInt8(obj.id, offset + 1 + 2*i)
@@ -56,7 +56,7 @@ Services.msp.methods.map = [
 
       return 1 + 2*i
     }
-  },  
+  },
   {
     id: 0x01,
     method: 'startSampling',
@@ -74,7 +74,7 @@ Services.msp.methods.map = [
   {
     id: 0x02,
     method: 'stopSampling',
-    validateArgs() { 
+    validateArgs() {
     },
     serialize(args, buffer, offset) {
       buffer.writeUInt8(this.id, offset)
@@ -135,7 +135,7 @@ Services.msp.methods.map = [
         preheater: {
           raw: packet.readUInt16BE(10),
           voltage: packet.readUInt16BE(10)*3.3/16384.0,
-          temperature: 0.0037007729*packet.readUInt16BE(10) + 10.2201522894
+          temperature: 0.0037007729*packet.readUInt16BE(10) + 11.5201522894
         },
         heater: {
           raw: packet.readUInt16BE(12),
@@ -146,7 +146,7 @@ Services.msp.methods.map = [
         sd2: packet.readUInt16BE(16),
         timestamp: packet.readUInt32BE(18),
         counter: packet.readUInt32BE(22)
-      }   
+      }
       return result
     }
   },

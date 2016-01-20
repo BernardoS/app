@@ -77,20 +77,19 @@ Serial = class Serial {
       serialport.list((error, ports) => {
 
         if (typeof(ports) === 'undefined') {
-          console.log('>> Serial: Unable to find MSP432!')    
-        } 
-        else {      
-          ports = ports.filter((port) => { 
+          console.log('>> Serial: Unable to find MSP432!')
+        }
+        else {
+          ports = ports.filter((port) => {
             return (port.manufacturer === 'Texas_Instruments')
           })
 
           if (ports.length === 0) {
             console.log(`>> Serial: Unable to find MSP432!`)
           }
-          else { 
+          else {
             this.port = ports[0].comName
             console.log(`>> Serial: MSP432 found at ${this.port}`)
-            
             this.serialHandle = new SerialPort(this.port, {
               baudrate: this.baudrate,
               parser: parser
@@ -108,7 +107,6 @@ Serial = class Serial {
 
   open() {
     console.log(`>> Trying to open ${this.port}`)
-    
     this.serialHandle.open(error => {
       if (!error) {
         console.log(`>> Serial: ${this.port} connection successful`)

@@ -32,7 +32,7 @@ WebApp.connectHandlers.use('/database/restore',function(req,res,next){
         uri: process.env.MONGO_URL || 'mongodb://localhost:3001/meteor',
         root:'./',
         tar:'dump.tar',
-        //drop:true,
+        drop:true,
         callback:Meteor.bindEnvironment(function(err){
           fs.unlink('./dump.tar',Meteor.bindEnvironment(function (err){
             if (err) throw err;

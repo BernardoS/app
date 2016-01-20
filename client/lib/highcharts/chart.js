@@ -14,7 +14,7 @@ Chart = {
     ).map(function(samplesPerHour,i){
       samplesPerHour.samples.map(function(sample,i){
         if(counter++ <= this.counter){
-          data = data.concat({y:sample[id]});
+          data = data.concat({y:sample[id],temperature:sample.heater});
         }
       },analysis)
     });
@@ -55,6 +55,7 @@ Chart = {
         plotBackgroundColor: null,
         plotBorderWidth: null,
         plotShadow: false,
+        zoomType: 'x'
         //animation:false
       },
       credits:{
@@ -104,8 +105,10 @@ Chart = {
       tooltip: {
         crosshairs: true,
         shared: true,
-        xDateFormat: '<b>%H:%M:%S<b>',
-        pointFormat: '<b>{point.y}</b>'
+        xDateFormat: '<b>%H:%M:%S</b>',
+        pointFormat: '<span style="color:{point.color}">\u25CF</span>Value: <b>{point.y}</b><br/><p>Temperature: {point.temperature}°C</p>',
+        //followPointer:true,
+        followTouchMove:true
       },
         series: []/*,
         series: [{

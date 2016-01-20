@@ -44,6 +44,7 @@ Template.Outputs.events({
       Meteor.call('configureLocks',{_id:this._id, id:this.id, value:1},function(error,result){
         if(error){
           Messages.newErrorMsg(error);
+          return;
         }
       })
     }
@@ -53,6 +54,7 @@ Template.Outputs.events({
       Meteor.call('configureLocks',{_id:this._id, id:this.id, value:0},function(error,result){
         if(error){
           Messages.newErrorMsg(error);
+          return;
         }
       })
     }

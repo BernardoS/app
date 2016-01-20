@@ -1,7 +1,7 @@
 Template.Slider.onRendered(function(){
   let self = this.data;
   let slider = this.$(`[id='${self._id}']`)
-  //console.log(self);
+  
   slider.noUiSlider({
     start: self.start,
     connect: 'lower',
@@ -9,7 +9,7 @@ Template.Slider.onRendered(function(){
     format: wNumb({decimals: 0})
   })
   .on('slide', function (ev, val) {
-    if(!Outputs.findOne({'outputs.id':self.id}).value){
+    if(!Outputs.findOne({'outputs._id':self._id}).value){
       if(!Settings.findOne({_id:'Services'}).isBusy){
         Meteor.call('configureOutputs',self._id,self.id,val,function(error,result){
           if(error){
@@ -27,10 +27,9 @@ Template.Slider.onRendered(function(){
       Messages.newErrorMsg(new Meteor.Error(402, "Can't change value while it's automatic"))
       ChangeSliderValue(self);
     }
-    //Meteor.call('Outputs.update',self._id,self.id,val);
   })
   .on('change',function(ev,val){
-    if(!Outputs.findOne({'outputs.id':self.id}).value){
+    if(!Outputs.findOne({'outputs._id':self._id}).value){
       Meteor.call('configureOutputs',self._id,self.id,val,function(error,result){
         if(error){
           Messages.newErrorMsg(error)
@@ -47,6 +46,15 @@ Template.Slider.onRendered(function(){
       ChangeSliderValue(self);
     }
   })
+
+  this.autorun(function(){
+    if(Outputs.findOne({'outputs._id':self._id}).value){
+      $(`[id='${self._id}']`)[0].setAttribute('disabled',true);
+    }else{
+      $(`[id='${self._id}']`)[0].removeAttribute('disabled');
+    }
+  });
+
 });
 
 ChangeSliderValue = function(self){

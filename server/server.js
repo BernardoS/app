@@ -7,6 +7,7 @@ Meteor.startup(function () {
 	Services.initialize(function(){})
 	cleanDatabase();
 
+
 	/*Settings.find({_id:'SamplingState'}).observe({
 		changed({value,frequency}){
 			if(value){
@@ -20,13 +21,14 @@ sampleOnce = function(counter){
 	Services.call('sampleOnce', {}, Meteor.bindEnvironment(function(status, data) {
 		if (status == 'success'){
 			Settings.update({_id:'SamplingState'},{$set:{value:true}});
-			let {ph,na,k,cl,conductivity} = data.result;
+			let {ph,na,k,cl,conductivity,heater} = data.result;
 			let sample = {
 				ph:parseFloat(((ph.raw/16384-1.65)*3.03).toFixed(3)),
 				na:parseFloat(((na.raw/16384-1.65)*3.03).toFixed(3)),
 				k:parseFloat(((k.raw/16384-1.65)*3.03).toFixed(3)),
 				cl:parseFloat(((cl.raw/16384-1.65)*3.03).toFixed(3)),
 				conductivity:parseFloat(((conductivity.raw/16384-1.65)*3.03).toFixed(3)),
+				heater:parseFloat((heater.temperature).toFixed(3)),
 				volume:0,
 			}
 			AnalysisController.dataReceived({data:sample,date:+moment(),counter})
